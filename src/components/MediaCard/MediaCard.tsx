@@ -3,6 +3,7 @@ import { IMedia } from "@/models/media.model";
 import Link from "next/link";
 
 export const MediaCard = ({ media }: { media: IMedia }) => {
+  console.log(media.links[0].href);
   return (
     <div className="relative flex flex-col mt-6 text-gray-700 glass-morphism shadow-md bg-clip-border rounded-xl w-96">
       <div className="relative h-56 mx-4 mt-4 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
