@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-poppins);
+  background-color: black;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 150px;
+}
+
+/* h1,
+h2,
+h3 {
+  font-family: var(--font-mulish);
+} */
+
+.fade-bg {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.glass-morphism {
+  background: rgba(51, 51, 51, 0.1);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.search-input {
+}
