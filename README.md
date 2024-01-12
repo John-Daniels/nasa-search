@@ -3,6 +3,38 @@
 ## Highlights
 
 - Built with Nextjs
+- Made use of a design scheme from here [link](https://www.pinterest.com/pin/1477812367278415/)
+- Made use of the hook achitecture
+
+## If there was more time i will
+
+- Carry out exhaustive testing and apply error handling
+- Restructure the codebase to make it easier to read and maintain.
+- Features for sharing and downloading media.
+
+## Build and Run instruction
+
+1. **Install TypeScript globally (if not already installed):**
+   ```bash
+   npm install -g typescript
+   ```
+2. Install node modules
+
+```bash
+ npm install
+```
+
+3. Dev
+
+```bash
+ npm run dev
+```
+
+3. Build / Production
+
+```bash
+ npm run build
+```
 
 # Next.js + Jest
 
