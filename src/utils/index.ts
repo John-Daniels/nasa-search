@@ -1,8 +1,29 @@
 import moment from "moment";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const getUserImg = (image?: string) =>
-  image || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+export const isVideo = (string: string) => {
+  // List of common video file extensions
+  const allowedExts = [".mp4", ".avi", ".mkv", ".mov", ".wmv", ".flv", ".webm"];
+  // Convert the input string to lowercase for case-insensitive comparison
+  // Check if the string contains any video file extensions
+  return allowedExts.some((extension) =>
+    string.toLowerCase().includes(extension)
+  );
+};
+
+export const isImage = (string: string) => {
+  const allowedExts = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".svg",
+    ".webp",
+  ];
+  return allowedExts.some((extension) =>
+    string.toLowerCase().includes(extension)
+  );
+};
 
 export function convertObjectValuesToLowercase(obj: { [key: string]: any }) {
   // Check if the input is an object
@@ -35,13 +56,8 @@ export function getFileExtension(fileName) {
   return fileName.substr(lastDotIndex);
 }
 
-export const getUserRole = (role: number): "user" | "admin" | "super-admin" | "super-dictator" => {
-  const roles = ["user", "admin", "super-admin"];
-  roles[99] = "super-dictator";
-  return roles[role !== 99 ? role - 1 : role] as any;
-};
-
-export const formatDDMMYYY = (date: string) => moment(date).format("dd Mmm, YYYY");
+export const formatDDMMYYY = (date: string) =>
+  moment(date).format("ddd Mmm, YYYY");
 
 // Reusable function to convert time from 24-hour format to 12-hour format
 export const convertTo12HourFormat = (time24: string): string => {

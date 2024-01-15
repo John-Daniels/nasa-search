@@ -1,28 +1,54 @@
 "use client";
 import { IMedia } from "@/models/media.model";
+import useNasaService from "@/services/nasa/nasa.service";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export const MediaCard = ({ media }: { media: IMedia }) => {
-  console.log(media.links[0].href);
+  const { media_type } = media.data[0];
+  const { getMediaCollection } = useNasaService();
+  const [collection, setCollection] = useState<string[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      if (media_type === "video") {
+        const collection = await getMediaCollection(media.href, "video");
+        setCollection(collection);
+      }
+    })();
+  }, []);
+
+  const isVideo = media_type === "video";
+
   return (
-    <div className="relative flex flex-col mt-6 text-gray-700 glass-morphism shadow-md bg-clip-border rounded-xl w-96">
+    <div
+      role="media-card"
+      className="relative flex flex-col mt-6 text-gray-300 glass-morphism shadow-md bg-clip-border rounded-xl w-96"
+    >
       <div className="relative h-56 mx-4 mt-4 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-        <img
-          src={media.links[0].href}
-          className="object-cover"
-          alt="card-image"
-        />
+        {isVideo ? (
+          <video
+            src={collection[0]}
+            muted
+            autoPlay
+            className="h-full bg-black"
+          />
+        ) : (
+          <img
+            src={media.links[0].href}
+            className="object-cover"
+            alt="card-image"
+          />
+        )}
       </div>
 
       <div className="p-6">
         <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
           {media.data[0].title}
         </h5>
-        {/* <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-          The place is close to Barceloneta Beach and bus stop just 2 min by
-          walk and near to "Naviglio" where you can enjoy the main night life in
-          Barcelona.
-        </p> */}
+        <p className="font-sans text-base antialiased font-light leading-relaxed text-inherit line-clamp-2">
+          {media.data[0].description}
+        </p>
       </div>
       <div className="p-6 pt-0">
         <Link href={`assets/${media.data[0].nasa_id}`}>

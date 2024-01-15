@@ -9,7 +9,7 @@ export interface Datum {
   title: string;
   keywords: string[];
   nasa_id: string;
-  date_created: Date;
+  date_created: string;
   media_type: string;
   description: string;
 }

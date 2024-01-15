@@ -31,12 +31,12 @@ const Home = () => {
   return (
     <div className={`relative h-[100vh] w-full`}>
       <Image
-        className="fixed left-0 top-0 h-full w-full"
+        className="fixed left-0 top-0 h-full w-full object-cover md:object-contain"
         src={Assets.spaceGalaxies}
         alt="space galaxies"
       />
 
-      <div className="relative flex flex-col min-h-full w-full items-center justify-center fade-bg text-white mt-20">
+      <div className="relative flex flex-col min-h-full w-full items-center justify-center fade-bg text-white pt-20">
         <div className="w-[80%] flex flex-col justify-center items-center">
           <Image
             src={Assets.logoText}
@@ -74,17 +74,21 @@ const Home = () => {
             </button>
           </form>
 
-          <div className="mt-10">
+          <div className="mt-10 ">
             <ButtonGroup variant="outlined" aria-label="outlined button group">
               <Button
-                className={selectedMedia === "image" ? "bg-[#1976D2]/30" : ""}
                 onClick={() => onMediaChange("image")}
+                style={{
+                  backgroundColor: selectedMedia === "image" ? "#1976D266" : "",
+                }}
               >
                 Images
               </Button>
               <Button
-                className={selectedMedia === "video" ? "bg-[#1976D2]/30" : ""}
                 onClick={() => onMediaChange("video")}
+                style={{
+                  backgroundColor: selectedMedia === "video" ? "#1976D266" : "",
+                }}
               >
                 Videos
               </Button>
@@ -98,11 +102,11 @@ const Home = () => {
 
         {/* results */}
 
-        <div className="w-full flex flex-wrap justify-center items-center gap-10 mt-10">
+        <div className="w-full flex flex-wrap justify-center items-center gap-2 md:gap-10 mt-10 px-1">
           {isLoading &&
             Array(5)
               .fill("data")
-              .map((d) => <MediaSkeleton />)}
+              .map((d, i) => <MediaSkeleton key={i} />)}
 
           {results.map((media, index) => (
             <MediaCard media={media} key={index} />

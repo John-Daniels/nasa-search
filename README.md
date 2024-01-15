@@ -4,15 +4,21 @@
 
 - Built with Nextjs
 - Made use of a design scheme from here [link](https://www.pinterest.com/pin/1477812367278415/)
+
+- Created a logo for the app using figma check it out here [link](https://www.figma.com/file/P01w31IfsBDzfU1KPDC2j8/Nasa-Search?type=design&node-id=0%3A1&mode=design&t=wG43hjUyK2h0xMeE-1)
+
 - Made use of the hook achitecture
+- Created a reusable api-request hook, for streamlining make requests
 
 ## If there was more time i will
 
+- Implement a carousel, and a gallery view
+- Add a Footer
 - Carry out exhaustive testing and apply error handling
 - Restructure the codebase to make it easier to read and maintain.
 - Features for sharing and downloading media.
 
-## Build and Run instruction
+## Setup - Installation Process
 
 1. **Install TypeScript globally (if not already installed):**
    ```bash

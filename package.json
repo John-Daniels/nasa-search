@@ -23,6 +23,7 @@
     "@phosphor-icons/react": "^2.0.13",
     "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^1.9.7",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tanstack/react-table": "^8.9.3",
     "aos": "^2.3.4",
     "autoprefixer": "10.4.15",

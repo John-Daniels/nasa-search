@@ -1,6 +1,7 @@
 "use client";
 import API from "@/constants/api.constant";
 import { IMedia } from "@/models/media.model";
+import { isImage, isVideo } from "@/utils";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useRequest from "../request/request.service";
@@ -33,19 +34,33 @@ const useNasaService = () => {
         method: "GET",
         url: API.search,
         params: {
-          nasa_id,
+          nasa_id: nasa_id.split(" ").join(""),
         },
       });
 
       const { collection } = res.data;
-
-      return collection.items[0] as IMedia;
+      return collection.items?.[0] as IMedia | null;
     } catch (error) {
       toast.error("Something went wrong, Please try again");
     }
   };
 
-  return { search, results, requestState, getMediaByID };
+  const getMediaCollection = async (url: string, type: "video" | "image") => {
+    try {
+      const { data } = await makeRequest({
+        url,
+        method: "GET",
+      });
+
+      return (data as string[]).filter((media) =>
+        type === "video" ? isVideo(media) : isImage(media)
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return { search, results, requestState, getMediaByID, getMediaCollection };
 };
 
 export default useNasaService;
