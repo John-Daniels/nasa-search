@@ -98,7 +98,7 @@ export function FadeOutAndHide({
       initial="visible"
       animate={isVisible ? "visible" : "hidden"}
       variants={variants}
-      style={{ transition: "all 0.1s ease-out" }}
+      style={{ transition: "all 0.3s ease-out" }}
       {...others}
     >
       {children}
@@ -146,14 +146,24 @@ export function SlideDown({
   };
 
   return (
-    <motion.div variants={variants} animate={target ? "slideDown" : ""} className={className}>
+    <motion.div
+      variants={variants}
+      animate={target ? "slideDown" : ""}
+      className={className}
+    >
       {children}
     </motion.div>
   );
 }
 
 // without target
-export function NoTargetSlideDown({ children, fullWidth = true }: { children: ReactNode; fullWidth?: boolean }) {
+export function NoTargetSlideDown({
+  children,
+  fullWidth = true,
+}: {
+  children: ReactNode;
+  fullWidth?: boolean;
+}) {
   const variants = {
     slideDown: {
       y: [-500, 0],
@@ -209,7 +219,13 @@ export function ZoomInOut({
   );
 }
 
-export function FadeIn({ children, fullWidth = true }: { children?: ReactNode; fullWidth?: boolean }) {
+export function FadeIn({
+  children,
+  fullWidth = true,
+}: {
+  children?: ReactNode;
+  fullWidth?: boolean;
+}) {
   const variants = {
     fade: {
       opacity: [0, 1],
@@ -271,7 +287,13 @@ export function SlideFadeUp({ children }: { children: React.ReactNode }) {
 //   );
 // }
 
-export function AnimateFadeUp({ children, className }: { children: React.ReactNode; className?: string }) {
+export function AnimateFadeUp({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true, // Only trigger the animation once
