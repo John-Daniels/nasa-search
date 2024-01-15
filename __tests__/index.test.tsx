@@ -21,7 +21,7 @@ describe("Home", () => {
     // Wait for the search results to be rendered
     await waitFor(() => {
       // Check if at least 4 items are rendered in the results
-      const searchResults = screen.getAllByClassName("media-card"); // Adjust class name accordingly
+      const searchResults = screen.getAllByRole("media-card"); // Adjust class name accordingly
       expect(searchResults.length).toBeGreaterThanOrEqual(4);
     });
   });
