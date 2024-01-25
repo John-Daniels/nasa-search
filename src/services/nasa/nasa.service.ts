@@ -10,7 +10,11 @@ const useNasaService = () => {
   const { makeRequest, ...requestState } = useRequest();
   const [results, setResults] = useState<IMedia[]>([]);
 
-  const search = async (search: string, media_type: string) => {
+  const search = async (
+    search: string,
+    media_type: string,
+    current_page: number = 1
+  ) => {
     try {
       const res = await makeRequest({
         method: "GET",
@@ -18,11 +22,28 @@ const useNasaService = () => {
         params: {
           q: search,
           media_type,
+          page_size: 10,
+          page: current_page,
         },
       });
 
       const { collection } = res.data;
-      setResults(collection.items);
+
+      const scrollPosition = window.scrollY;
+      const viewportHeight = window.innerHeight;
+
+      if (current_page > 1) {
+        setResults((results) => [...results, ...collection.items]);
+      } else {
+        setResults(collection.items);
+      }
+
+      const targetScrollPosition = scrollPosition + viewportHeight * 0.1; // Scroll to 20% in view
+
+      window.scrollTo({
+        top: targetScrollPosition,
+        behavior: "smooth", // Optional: adds smooth scrolling effect
+      });
     } catch (error) {
       toast.error("Something went wrong, Please try again");
     }

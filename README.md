@@ -9,6 +9,7 @@
 
 - Made use of the hook achitecture
 - Created a reusable api-request hook, for streamlining make requests
+- added lazy loading Padgination
 
 ## If there was more time i will
 

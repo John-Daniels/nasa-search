@@ -3,6 +3,7 @@ import { IMedia } from "@/models/media.model";
 import useNasaService from "@/services/nasa/nasa.service";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import FadeImage from "../FadeImage";
 
 export const MediaCard = ({ media }: { media: IMedia }) => {
   const { media_type } = media.data[0];
@@ -23,7 +24,7 @@ export const MediaCard = ({ media }: { media: IMedia }) => {
   return (
     <div
       role="media-card"
-      className="relative flex flex-col mt-6 text-gray-300 glass-morphism shadow-md bg-clip-border rounded-xl w-96"
+      className="relative flex flex-col mt-6 text-gray-300 glass-morphism shadow-md bg-clip-border rounded-xl w-96 "
     >
       <div className="relative h-56 mx-4 mt-4 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
         {isVideo ? (
@@ -34,16 +35,18 @@ export const MediaCard = ({ media }: { media: IMedia }) => {
             className="h-full bg-black"
           />
         ) : (
-          <img
-            src={media.links[0].href}
-            className="object-cover"
-            alt="card-image"
+          <FadeImage
+            src={media.links[0].href + `?cache=${media.data[0].nasa_id}`}
+            width={1000}
+            height={1000}
+            className="object-cover w-full h-full"
+            alt={media.data[0].title + " picture"}
           />
         )}
       </div>
 
       <div className="p-6">
-        <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
+        <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white line-clamp-2">
           {media.data[0].title}
         </h5>
         <p className="font-sans text-base antialiased font-light leading-relaxed text-inherit line-clamp-2">

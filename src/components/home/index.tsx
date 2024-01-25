@@ -2,10 +2,11 @@
 
 import Assets from "@/constants/assets.constant";
 import useNasaService from "@/services/nasa/nasa.service";
+import usePadginationService from "@/services/padgination/padgination.service";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MediaCard, MediaSkeleton } from "../MediaCard/MediaCard";
 
 const Home = () => {
@@ -27,6 +28,24 @@ const Home = () => {
     setSelectedMedia(media);
     if (searchQuery) await search(searchQuery, media);
   };
+
+  const { page, loadingMore, setLoadingMore } = usePadginationService();
+
+  // keep track of the loading state
+  useEffect(() => {
+    if (page > 1 && !isLoading && isSuccess) setLoadingMore(false);
+  }, [isSuccess]);
+
+  const loadMore = async () => {
+    setLoadingMore(true);
+    await search(searchQuery, selectedMedia, page); // Increment page number
+  };
+
+  useEffect(() => {
+    if (page > 1) {
+      loadMore();
+    }
+  }, [page]);
 
   return (
     <div className={`relative h-[100vh] w-full`}>
@@ -102,8 +121,9 @@ const Home = () => {
 
         {/* results */}
 
-        <div className="w-full flex flex-wrap justify-center items-center gap-2 md:gap-10 mt-10 px-1">
+        <div className="w-full flex flex-wrap justify-center items-center gap-2 md:gap-10 my-10 px-1">
           {isLoading &&
+            page == 1 &&
             Array(5)
               .fill("data")
               .map((d, i) => <MediaSkeleton key={i} />)}
@@ -111,6 +131,12 @@ const Home = () => {
           {results.map((media, index) => (
             <MediaCard media={media} key={index} />
           ))}
+
+          {isLoading &&
+            page > 1 &&
+            Array(5)
+              .fill("data")
+              .map((d, i) => <MediaSkeleton key={i} />)}
         </div>
       </div>
     </div>

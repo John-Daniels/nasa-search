@@ -1,18 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       hostname: "*.googleusercontent.com",
-  //     },
-  //     {
-  //       protocol: "https",
-  //       hostname: "cdn.pixabay.com",
-  //       port: "",
-  //       pathname: "/photo/**",
-  //     },
-  //   ],
-  // },
+  images: {
+    remotePatterns: [
+      // {
+      //   hostname: "*.googleusercontent.com",
+      // },
+      {
+        protocol: "https",
+        hostname: "images-assets.nasa.gov",
+        port: "",
+        pathname: "/image/**",
+      },
+    ],
+  },
 };
 
 const millionConfig = {
