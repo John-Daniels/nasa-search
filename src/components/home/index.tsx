@@ -6,12 +6,31 @@ import usePadginationService from "@/services/padgination/padgination.service";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MediaCard, MediaSkeleton } from "../MediaCard/MediaCard";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedMedia, setSelectedMedia] = useState("image");
+
+  const searchParams = useSearchParams();
+
+  const router = useRouter();
+  const query = searchParams.get("query") || "";
+  const media = searchParams.get("media") || "";
+
+  // sync local state with search params..
+  useEffect(() => {
+    if (media) setSelectedMedia(media);
+    if (query) setSearchQuery(query);
+
+    if (query) {
+      (async () => {
+        await search(query, media || "image");
+      })();
+    }
+  }, []);
 
   const {
     results,
@@ -22,11 +41,13 @@ const Home = () => {
   const onSubmit = async (e: any) => {
     e.preventDefault();
     await search(searchQuery, selectedMedia);
+    router.push(`/?query=${searchQuery}`);
   };
 
   const onMediaChange = async (media: string) => {
     setSelectedMedia(media);
     if (searchQuery) await search(searchQuery, media);
+    router.push(`/?query=${searchQuery}&media=${media}`);
   };
 
   const { page, loadingMore, setLoadingMore } = usePadginationService();
@@ -70,7 +91,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search the universe..."
-              className="text-lg placeholder:text-lg w-full h-full rounded-[40px] border-[3px] border-[#F7FAFF]/80 transition duration-500 hover:border-[#F7FAFF] bg-transparent outline-none pl-11 placeholder:text-white search-input"
+              className="text-lg placeholder:text-lg w-full h-full rounded-[40px] border-[3px] border-[#F7FAFF]/80 transition duration-500 hover:border-[#F7FAFF] bg-transparent outline-none pl-4 md:pl-11 placeholder:text-white/90 search-input"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
